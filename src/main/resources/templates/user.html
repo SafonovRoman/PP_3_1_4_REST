@@ -36,15 +36,9 @@
 
         <br>
 
-        <select name="roles" id="roles" multiple="multiple" size="2" sec:authorize="hasRole('ROLE_ADMIN')">
+        <select name="roles" id="roles" multiple="multiple" size="2">
             <div th:each="role : ${roles}">
-                <option th:text="${role.toString()}" th:value="${role.getId()}" th:selected="${user.getRoles().contains(role)}"/>
-            </div>
-        </select>
-
-        <select name="roles" id="roles" multiple="multiple" size="2" sec:authorize="!hasRole('ROLE_ADMIN')">
-            <div th:each="role : ${roles}">
-                <option th:text="${role.toString()}" th:value="${role.getId()}" th:selected="${#request.isUserInRole(role.getName())}" disabled/>
+                <option th:text="${role.toString()}" th:value="${role.getId()}" th:selected="${user.getRoles().contains(role)}" th:disabled="${!#request.isUserInRole('ROLE_ADMIN')}"/>
             </div>
         </select>
 

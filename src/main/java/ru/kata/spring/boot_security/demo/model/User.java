@@ -75,7 +75,7 @@ public class User implements UserDetails {
       this.email = email;
    }
 
-   public Collection<Role> getRoles() {
+   public Collection<? extends GrantedAuthority> getRoles() {
       return this.roles;
    }
 
