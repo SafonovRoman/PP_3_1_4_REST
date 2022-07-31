@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="ru">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 <body>
 <header th:insert="fragments::header"></header>
 <div align="center">
-    <h2 th:text="'Пользователь ' + ${user.getFullName()}" th:if="${user.getFullName() != 'null null'}"></h2>
+    <h2 th:text="'Пользователь ' + ${user.getFullName()}" th:if="${user != 'null'}"></h2>
     <form th:method="POST" th:action="(${user == 'null'}) ? '/admin/new' : ${user.id}"
           modelAttribute="user">
         <label for="email">E-mail</label>
@@ -36,16 +36,18 @@
 
         <br>
 
-        <select name="roles" id="roles" multiple="multiple" size="2">
+        <select name="roles" id="roles" multiple="multiple" size="2" style="">
             <div th:each="role : ${roles}">
                 <option th:text="${role.toString()}" th:value="${role.getId()}" th:selected="${user.getRoles().contains(role)}"/>
             </div>
         </select>
 
         <br>
-        <a href="/admin">Вернуться к списку пользователей</a>
-        <input type="submit"
-               th:value="${#httpServletRequest.requestURI.endsWith('new')} ? 'Создать пользователя' : 'Изменить данные'">
+        <div sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+            <a href="/admin">Вернуться к списку пользователей</a>
+            <input type="submit"
+                   th:value="${#httpServletRequest.requestURI.endsWith('new')} ? 'Создать пользователя' : 'Изменить данные'">
+        </div>
     </form>
 </div>
 </body>
