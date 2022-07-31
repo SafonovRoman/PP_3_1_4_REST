@@ -5,19 +5,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 @Controller
 public class UsersController {
+
+    final private Long[] emptyList = null;
 
     @Autowired
     UserService userService;
@@ -65,14 +64,16 @@ public class UsersController {
                              @RequestParam("email") String email,
                              @RequestParam("firstName") String firstName,
                              @RequestParam("lastName") String lastName,
-                             @RequestParam("roles") Long[] rolesIds) {
+                             @RequestParam(value = "roles", required = false) Long[] rolesIds) {
         User user = userService.getUser(id);
         user.setEmail(email);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.dropRoles();
-        for (Long roleId : rolesIds) {
-            user.addRole(roleService.getRole(roleId));
+        if (rolesIds != null) {
+            for (Long roleId : rolesIds) {
+                user.addRole(roleService.getRole(roleId));
+            }
         }
         userService.update(user);
         model.addAttribute("user", user);
