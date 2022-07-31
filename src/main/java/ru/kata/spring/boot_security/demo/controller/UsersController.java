@@ -64,11 +64,15 @@ public class UsersController {
                              @RequestParam("email") String email,
                              @RequestParam("firstName") String firstName,
                              @RequestParam("lastName") String lastName,
+                             @RequestParam("username") String username,
+                             @RequestParam("password") String password,
                              @RequestParam(value = "roles", required = false) Long[] rolesIds) {
         User user = userService.getUser(id);
         user.setEmail(email);
         user.setFirstName(firstName);
         user.setLastName(lastName);
+        user.setUsername(username);
+        user.setPassword(password);
         user.dropRoles();
         if (rolesIds != null) {
             for (Long roleId : rolesIds) {
