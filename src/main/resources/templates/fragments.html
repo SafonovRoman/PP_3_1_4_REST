@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<header sec:authorize="isAuthenticated()" th:fragment="header" style="display: flex; justify-content: flex-end ">
+  <nav>
+    <h3 style="margin-right: 50px">
+      <a href="/logout">Logout</a>
+    </h3>
+  </nav>
+</header>
+</body>
+</html>
