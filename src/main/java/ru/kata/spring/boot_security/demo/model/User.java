@@ -2,7 +2,6 @@ package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -32,7 +31,10 @@ public class User implements UserDetails {
    @Column(name = "email")
    private String email;
 
-   @ManyToMany(fetch = FetchType.EAGER)
+   @ManyToMany()
+   @JoinTable (name="users_roles",
+           joinColumns=@JoinColumn (name="user_id"),
+           inverseJoinColumns=@JoinColumn(name="roles_id"))
    private Set<Role> roles = new HashSet<>();
 
    public User() {}
@@ -88,8 +90,7 @@ public class User implements UserDetails {
    }
 
    public void setPassword(String newPassword) {
-      BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-      this.password = pe.encode(newPassword);
+      this.password = newPassword;
    }
 
    @Override
@@ -103,10 +104,6 @@ public class User implements UserDetails {
 
    public void addRole(Role role) {
       this.roles.add(role);
-   }
-
-   public void removeRole(Role role) {
-      this.roles.remove(role);
    }
 
    public void dropRoles() {
@@ -131,5 +128,20 @@ public class User implements UserDetails {
    @Override
    public boolean isEnabled() {
       return true;
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof User)) return false;
+
+      User user = (User) o;
+
+      return getId().equals(user.getId());
+   }
+
+   @Override
+   public int hashCode() {
+      return getId().hashCode();
    }
 }

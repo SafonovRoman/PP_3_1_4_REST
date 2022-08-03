@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="ru">
-<html lang="en">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title th:text="${'Страница пользователя ' + user.getFullName()}"></title>
@@ -9,8 +8,7 @@
 <header th:insert="fragments::header"></header>
 <div align="center">
     <h2 th:text="'Пользователь ' + ${user.getFullName()}" th:if="${user != 'null'}"></h2>
-    <form th:method="POST" th:action="(${user == 'null'}) ? '/admin/new' : ${user.id}"
-          modelAttribute="user">
+    <form th:method="POST" th:action="(${user == 'null'}) ? '/admin/new' : ${user.id}">
         <label for="email">E-mail</label>
         <input name="email" type="text" id="email" th:value="${user.getEmail()}"/>
 
@@ -35,11 +33,12 @@
         <input name="lastName" type="text" id="lastName" th:value="${user.getLastName()}"/>
 
         <br>
+        <label for="roles">Роли:</label>
 
         <select name="roles" id="roles" multiple="multiple" size="2">
-            <div th:each="role : ${roles}">
+            <th:block th:each="role : ${roles}">
                 <option th:text="${role.toString()}" th:value="${role.getId()}" th:selected="${user.getRoles().contains(role)}" th:disabled="${!#request.isUserInRole('ROLE_ADMIN')}"/>
-            </div>
+            </th:block>
         </select>
 
         <br>

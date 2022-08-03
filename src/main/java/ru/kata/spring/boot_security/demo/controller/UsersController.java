@@ -16,13 +16,13 @@ import java.util.List;
 @Controller
 public class UsersController {
 
-    final private Long[] emptyList = null;
+    private final UserService userService;
+    private final RoleService roleService;
 
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    RoleService roleService;
+    public UsersController(@Autowired UserService userService, @Autowired RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @GetMapping(value = "/admin")
     public String showAllUsers(ModelMap model) {
@@ -74,11 +74,7 @@ public class UsersController {
         user.setUsername(username);
         user.setPassword(password);
         user.dropRoles();
-        if (rolesIds != null) {
-            for (Long roleId : rolesIds) {
-                user.addRole(roleService.getRole(roleId));
-            }
-        }
+        userService.addRoles(user, rolesIds);
         userService.update(user);
         model.addAttribute("user", user);
         model.addAttribute("roles", roleService.listRoles());

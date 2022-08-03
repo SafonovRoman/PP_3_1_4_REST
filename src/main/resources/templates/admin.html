@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head"></head>
 <body>
 <header th:insert="fragments::header"></header>
 <div style="display: flex; flex-direction: column; align-items: center">
     <table>
         <th:block th:each="user : ${users}">
             <tr>
+                <td th:text="${user.getUsername()}"></td>
                 <th th:text="${user.getEmail()}"></th>
                 <td th:text="${user.getFirstName()}"></td>
                 <td th:text="${user.getLastName()}"></td>
@@ -27,5 +24,6 @@
         <h3>Добавить пользователя</h3>
     </a>
 </div>
+<th:block th:include="fragments::bootstrap_javascript"></th:block>
 </body>
 </html>
