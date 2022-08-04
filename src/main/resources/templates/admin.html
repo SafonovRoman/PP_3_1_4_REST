@@ -112,8 +112,11 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form method="POST" th:action="'/admin/' + ${user.id}" action="admin/" style="font-size: smaller">
-                              <div class="font-weight-bolder container-fluid d-flex flex-column align-items-center mx-auto col-6">
+
+                            <!-- Форма редактирования пользователя -->
+
+                            <form method="POST" th:action="'/admin/' + ${user.id}" action="admin/">
+                              <div class="font-weight-bolder container-fluid d-flex flex-column align-items-center mx-auto col-6" style="font-size: small">
                                 <label class="mb-0" th:for="${'id' + user.getId()}" for="id2">ID</label>
                                 <input class="form-control mb-2 h-50" name="id" type="text" th:id="${'id' + user.getId()}" id="id2" th:value="${user.getId()}" readonly/>
 
@@ -154,7 +157,7 @@
             </div>
           </div>
 
-          <!-- Создание пользователя -->
+          <!-- Экран создания пользователя -->
 
           <div class="tab-pane fade" id="page-user">
             <div class="card">
