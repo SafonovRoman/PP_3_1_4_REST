@@ -17,58 +17,56 @@
     </div>
     <a href="/logout" sec:authorize="isAuthenticated()" class="text-white-50">Logout</a>
   </header>
-  <div class="container d-flex row">
-
-    <div class="col-2 p-0 pt-2">
-      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+  <div class="content container-fluid d-flex row p-0 m-0">
+    <div class="col-3 p-0 pt-3">
+      <div class="p-0 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <div class="list-group" id="list-tab" role="tablist">
-          <a class="list-group-item list-group-item-action active" id="list-admin-list" data-bs-toggle="list" href="#list-admin" role="tab" aria-controls="list-admin">Admin</a>
-          <a class="list-group-item list-group-item-action" id="list-user-list" data-bs-toggle="list" href="#list-user" role="tab" aria-controls="list-user">User</a>
-      </div>
-
-      <div class="col-8">
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="list-admin" role="tabpanel" aria-labelledby="list-admin-list">first</div>
-          <div class="tab-pane fade" id="list-user" role="tabpanel" aria-labelledby="list-user-list">second</div>
+          <a class="list-group-item list-group-item-action active" id="list-admin-list" data-bs-toggle="list"
+             href="#list-admin" role="tab" aria-controls="list-admin">Admin</a>
+          <a class="list-group-item list-group-item-action" id="list-user-list" data-bs-toggle="list"
+             href="#list-user" role="tab" aria-controls="list-user">User</a>
         </div>
       </div>
     </div>
-<!--    <div class="content bg-light col p-4">-->
-<!--      <h4>Admin panel</h4>-->
-<!--      <ul class="nav nav-tabs">-->
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link active" aria-current="page" href="#">Users table</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link" href="#">New User</a>-->
-<!--        </li>-->
-<!--&lt;!&ndash;        <li class="nav-item">&ndash;&gt;-->
-<!--&lt;!&ndash;          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>&ndash;&gt;-->
-<!--&lt;!&ndash;        </li>&ndash;&gt;-->
-<!--      </ul>-->
 
-      <table>
-        <th:block th:each="user : ${users}">
-          <tr>
-            <td th:text="${user.getUsername()}">test1username</td>
-            <th th:text="${user.getEmail()}">test1email</th>
-            <td th:text="${user.getFirstName()}">test1firstname</td>
-            <td th:text="${user.getLastName()}">test1lastname</td>
-            <td>
-              <a th:href="'/admin/' + ${user.id}">Редактировать</a>
-            </td>
-            <td>
-              <a th:href="'/admin/' + ${user.id} + '/delete'">Удалить</a>
-            </td>
-          </tr>
-        </th:block>
-      </table>
+    <div class="col-9 bg-light pt-3 min-vh-100">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="list-admin" role="tabpanel" aria-labelledby="list-admin-list">
+          <!-- Вот тут основное окно вкладки Admin -->
+          <h1 class="font-weight-normal">Admin panel</h1>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Users table</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">New User</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="list-user" role="tabpanel" aria-labelledby="list-user-list">second</div>
+      </div>
     </div>
+<!--    <table>-->
+<!--      <th:block th:each="user : ${users}">-->
+<!--        <tr>-->
+<!--          <td th:text="${user.getUsername()}">test1username</td>-->
+<!--          <th th:text="${user.getEmail()}">test1email</th>-->
+<!--          <td th:text="${user.getFirstName()}">test1firstname</td>-->
+<!--          <td th:text="${user.getLastName()}">test1lastname</td>-->
+<!--          <td>-->
+<!--            <a th:href="'/admin/' + ${user.id}">Редактировать</a>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <a th:href="'/admin/' + ${user.id} + '/delete'">Удалить</a>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--      </th:block>-->
+<!--    </table>-->
+  </div>
 
 <!--    <a th:href="'/admin/new'">-->
 <!--      <h3>Добавить пользователя</h3>-->
 <!--    </a>-->
-  </div>
 
   <th:block th:include="fragments::bootstrap_javascript">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
