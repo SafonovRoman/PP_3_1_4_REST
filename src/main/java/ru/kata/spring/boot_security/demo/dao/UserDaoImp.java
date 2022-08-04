@@ -5,7 +5,10 @@ import ru.kata.spring.boot_security.demo.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Repository
@@ -30,8 +33,8 @@ public class UserDaoImp implements UserDao {
    }
 
    @Override
-   public List<User> listUsers() {
-      return entityManager.createQuery("select u from User u").getResultList();
+   public Set<User> listUsers() {
+      return new HashSet<User>(entityManager.createQuery("select u from User u left join fetch u.roles").getResultList());
    }
 
    @Override

@@ -135,9 +135,7 @@ public class User implements UserDetails {
       if (this == o) return true;
       if (!(o instanceof User)) return false;
 
-      User user = (User) o;
-
-      return getId().equals(user.getId());
+      return getId().equals(((User) o).getId());
    }
 
    @Override
