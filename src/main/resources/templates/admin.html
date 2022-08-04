@@ -5,9 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <title th:text="${title}"></title>
 </head>
 <body class="container-fluid p-0">
@@ -84,7 +83,7 @@
                       </td>
                       <td>
 <!--                        <a class="btn btn-info text-white btn-sm" role="button" th:href="'/admin/' + ${user.id}" data-toggle="modal" data-target="#exampleModal">Edit</a>-->
-                        <a class="btn btn-info text-white btn-sm" role="button" data-toggle="modal" th:data-target="${'#exampleModal' + user.getId()}">Edit</a>
+                        <a class="btn btn-info text-white btn-sm" role="button" data-toggle="modal" th:data-target="${'#exampleModal' + user.getId()}" data-target="#exampleModal">Edit</a>
                       </td>
                       <td>
                         <a class="btn btn-danger text-white btn-sm" th:href="'/admin/' + ${user.id} + '/delete'">Delete</a>
@@ -92,7 +91,7 @@
 
                     </tr>
                     <!-- Генерация модальных окон-->
-                    <div class="modal fade" th:id="${'exampleModal' + user.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" th:id="${'exampleModal' + user.getId()}" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                          aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -103,37 +102,37 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form th:method="POST" th:action="'/admin/' + ${user.id}" style="font-size: smaller">
-                              <div class="font-weight-bolder container-fluid d-flex flex-column align-items-center">
-                              <label class="mb-0" th:for="${'id' + user.getId()}">ID</label>
-                              <input class="form-control w-auto mb-2 h-50" name="id" type="text" th:id="${'id' + user.getId()}" th:value="${user.getId()}" readonly/>
+                            <form method="POST" th:action="'/admin/' + ${user.id}" action="admin.html" style="font-size: smaller">
+                              <div class="font-weight-bolder container-fluid d-flex flex-column align-items-center w-auto">
+                                <label class="mb-0" th:for="${'id' + user.getId()}" for="id2">ID</label>
+                                <input class="form-control w-auto mb-2 h-50" name="id" type="text" th:id="${'id' + user.getId()}" id="id2" th:value="${user.getId()}" readonly/>
 
-                              <label class="mb-0" th:for="${'username' + user.getId()}">Username</label>
-                              <input class="form-control w-auto mb-2 h-50" name="username" type="text" th:id="${'username' + user.getId()}" th:value="${user.getUsername()}"/>
+                                <label class="mb-0" th:for="${'username' + user.getId()}" for="username2">Username</label>
+                                <input class="form-control w-auto mb-2 h-50" name="username" type="text" th:id="${'username' + user.getId()}" id="username2" th:value="${user.getUsername()}"/>
 
-                              <label class="mb-0" th:for="${'firstName' + user.getId()}">First name</label>
-                              <input class="form-control w-auto mb-2 h-75" name="firstName" type="text" th:id="${'firstName' + user.getId()}" th:value="${user.getFirstName()}"/>
+                                <label class="mb-0" th:for="${'firstName' + user.getId()}" for="firstName2">First name</label>
+                                <input class="form-control w-auto mb-2 h-75" name="firstName" type="text" th:id="${'firstName' + user.getId()}" id="firstName2" th:value="${user.getFirstName()}"/>
 
-                              <label class="mb-0" th:for="${'lasttName' + user.getId()}">Last name</label>
-                              <input class="form-control w-auto mb-2 h-75" name="lastName" type="text" th:id="${'lasttName' + user.getId()}" th:value="${user.getLastName()}"/>
+                                <label class="mb-0" th:for="${'lasttName' + user.getId()}" for="lastName2">Last name</label>
+                                <input class="form-control w-auto mb-2 h-75" name="lastName" type="text" th:id="${'lasttName' + user.getId()}" id="lastName2" th:value="${user.getLastName()}"/>
 
-                              <label class="mb-0" th:for="${'email' + user.getId()}">E-mail</label>
-                              <input class="form-control w-auto mb-2 h-75" name="email" type="text" th:id="${'email' + user.getId()}" th:value="${user.getEmail()}"/>
+                                <label class="mb-0" th:for="${'email' + user.getId()}" for="email2">E-mail</label>
+                                <input class="form-control w-auto mb-2 h-75" name="email" type="text" th:id="${'email' + user.getId()}" id="email2" th:value="${user.getEmail()}"/>
 
-                              <label class="mb-0" th:for="${'password' + user.getId()}">Password</label>
-                              <input class="form-control w-auto mb-2 h-75" name="password" type="password" th:id="${'password' + user.getId()}" th:value="${user.getPassword()}"/>
+                                <label class="mb-0" th:for="${'password' + user.getId()}" for="password2">Password</label>
+                                <input class="form-control w-auto mb-2 h-75" name="password" type="password" th:id="${'password' + user.getId()}" id="password2" th:value="${user.getPassword()}"/>
 
-                              <label class="mb-0" th:for="${'roles' + user.getId()}">Роли:</label>
-                              <select class="form-control w-auto mb-2 h-75" name="roles" th:id="${'roles' + user.getId()}" multiple="multiple" size="2">
-                                <option th:each="role : ${roles}" th:text="${role.toString()}" th:value="${role.getId()}" th:selected="${user.getRoles().contains(role)}" th:disabled="${!#request.isUserInRole('ROLE_ADMIN')}"/>
-                              </select>
-                              <br>
+                                <label class="mb-0" th:for="${'roles' + user.getId()}">Роли:</label>
+                                <select class="form-control mb-2 h-75" name="roles" th:id="${'roles' + user.getId()}" multiple="multiple" size="2">
+                                  <option th:each="role : ${roles}" th:text="${role.toString()}" th:value="${role.getId()}" value="1" th:selected="${user.getRoles().contains(role)}" th:disabled="${!#request.isUserInRole('ROLE_ADMIN')}">ROLE</option>
+                                </select>
+                                <br>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Edit</button>
+                                </div>
                               </div>
                             </form>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Edit</button>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -196,7 +195,11 @@
     </div>
   </div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <th:block th:include="fragments::bootstrap_javascript">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"

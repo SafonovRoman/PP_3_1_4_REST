@@ -80,7 +80,7 @@ public class UsersController {
         userService.update(user);
         model.addAttribute("user", user);
         model.addAttribute("roles", roleService.listRoles());
-        return "user";
+        return showAllUsers(model);
     }
 
     @GetMapping(value = "/admin/{id}/delete")
