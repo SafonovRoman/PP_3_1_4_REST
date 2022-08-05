@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User implements UserDetails, Comparable {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -143,5 +143,13 @@ public class User implements UserDetails {
    @Override
    public int hashCode() {
       return getId().hashCode();
+   }
+
+   @Override
+   public int compareTo(Object o) {
+      if (!(o instanceof User other)) {
+         return 0;
+      }
+      return Long.compare(this.id, other.id);
    }
 }

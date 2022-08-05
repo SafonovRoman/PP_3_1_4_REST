@@ -40,7 +40,7 @@ public class UsersController {
     public RedirectView createUser(ModelMap model, @ModelAttribute("user") User user,
                                    @RequestParam(value = "roles", required = false) Long[] rolesIds) {
 
-        if (rolesIds.length > 0) {
+        if (rolesIds != null) {
             for (Long id : rolesIds) {
                 user.addRole(roleService.getRole(id));
             }
