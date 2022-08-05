@@ -38,10 +38,12 @@ public class UsersController {
 
     @PostMapping(value = "/admin/new")
     public RedirectView createUser(ModelMap model, @ModelAttribute("user") User user,
-                                   @RequestParam("roles") Long[] rolesIds) {
+                                   @RequestParam(value = "roles", required = false) Long[] rolesIds) {
 
-        for (Long id : rolesIds) {
-            user.addRole(roleService.getRole(id));
+        if (rolesIds.length > 0) {
+            for (Long id : rolesIds) {
+                user.addRole(roleService.getRole(id));
+            }
         }
         userService.add(user);
         return new RedirectView("/");
