@@ -1,7 +1,9 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.context.HttpRequestResponseHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -24,21 +26,14 @@ public class UsersController {
         this.roleService = roleService;
     }
 
-    @GetMapping(value = "/admin")
-    public String showAllUsers(ModelMap model) {
-        model.addAttribute("users", userService.listUsers());
+    @GetMapping(value = "/")
+    public String indexPage(ModelMap model, Authentication authentication) {
+        if (authentication.getAuthorities().contains(roleService.getRole(2L))) {
+            model.addAttribute("users", userService.listUsers());
+        }
         List<Role> roles = roleService.listRoles();
         model.addAttribute("roles", roles);
-        return "admin";
-    }
-
-    @GetMapping(value = "/admin/new")
-    public String showCreateUser(ModelMap model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        List<Role> roles = roleService.listRoles();
-        model.addAttribute("roles", roles);
-        return "user";
+        return "index";
     }
 
     @PostMapping(value = "/admin/new")
@@ -49,19 +44,11 @@ public class UsersController {
             user.addRole(roleService.getRole(id));
         }
         userService.add(user);
-        return new RedirectView("/admin");
-    }
-
-    @GetMapping(value = "/admin/{id}")
-    public String showUser(ModelMap model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userService.getUser(id));
-        List<Role> roles = roleService.listRoles();
-        model.addAttribute("roles", roles);
-        return "user";
+        return new RedirectView("/");
     }
 
     @PostMapping(value = "/admin/{id}")
-    public String updateUser(ModelMap model,
+    public RedirectView updateUser(ModelMap model,
                              @PathVariable("id") Long id,
                              @RequestParam("email") String email,
                              @RequestParam("firstName") String firstName,
@@ -78,22 +65,12 @@ public class UsersController {
         user.dropRoles();
         userService.addRoles(user, rolesIds);
         userService.update(user);
-        model.addAttribute("user", user);
-        model.addAttribute("roles", roleService.listRoles());
-        return showAllUsers(model);
+        return new RedirectView("/");
     }
 
     @GetMapping(value = "/admin/{id}/delete")
     public RedirectView deleteUser(ModelMap model, @PathVariable("id") Long id) {
         userService.delete(id);
-        return new RedirectView("/admin");
-    }
-
-    @GetMapping(value = "/user")
-    public String showMyPage(ModelMap model) {
-        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        List<Role> roles = roleService.listRoles();
-        model.addAttribute("roles", roles);
-        return "user";
+        return new RedirectView("/");
     }
 }
