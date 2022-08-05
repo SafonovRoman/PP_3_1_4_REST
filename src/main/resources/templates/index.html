@@ -15,7 +15,7 @@
         style="padding: 16px 30px; font-size: x-large">
   <div><span th:text="${#authentication.getPrincipal().getUsername()}" style="font-weight: bold">some@email.ru</span> with roles:
     <th:block th:each="role : ${#authentication.getAuthorities()}">
-      <span th:text="*{role.getAuthority()}">TEST_ROLE</span>
+      <span th:text="${role.getAuthority()}">TEST_ROLE</span>
     </th:block>
   </div>
   <a href="/logout" sec:authorize="isAuthenticated()" class="text-white-50">Logout</a>
@@ -155,7 +155,7 @@
                                        for="password2">Password</label>
                                 <input class="form-control mb-2 h-75" name="password" type="password"
                                        th:id="${'password' + user.getId()}" id="password2"
-                                       th:value="${user.getPassword()}"/>
+                                       value=""/>
 
                                 <label class="mb-0" th:for="${'roles' + user.getId()}" for="roles2">Роли:</label>
                                 <select class="form-control w-100 m-0 mb-2 h-75" name="roles"
@@ -207,33 +207,33 @@
                                        for="username3">Username</label>
                                 <input class="form-control mb-2 h-50" name="username" type="text"
                                        th:id="${'modalDeleteUsername' + user.getId()}" id="username3"
-                                       th:value="${user.getUsername()}"/>
+                                       th:value="${user.getUsername()}" readonly/>
 
                                 <label class="mb-0" th:for="${'modalDeleteFirstName' + user.getId()}" for="firstName3">First
                                   name</label>
                                 <input class="form-control mb-2 h-75" name="firstName" type="text"
                                        th:id="${'modalDeleteFirstName' + user.getId()}" id="firstName3"
-                                       th:value="${user.getFirstName()}"/>
+                                       th:value="${user.getFirstName()}" readonly/>
 
                                 <label class="mb-0" th:for="${'modalDeleteLasttName' + user.getId()}" for="lastName3">Last
                                   name</label>
                                 <input class="form-control mb-2 h-75" name="lastName" type="text"
                                        th:id="${'modalDeleteLasttName' + user.getId()}" id="lastName3"
-                                       th:value="${user.getLastName()}"/>
+                                       th:value="${user.getLastName()}" readonly/>
 
                                 <label class="mb-0" th:for="${'modalDeleteEmail' + user.getId()}" for="email3">E-mail</label>
                                 <input class="form-control mb-2 h-75" name="email" type="text"
-                                       th:id="${'modalDeleteEmail' + user.getId()}" id="email3" th:value="${user.getEmail()}"/>
+                                       th:id="${'modalDeleteEmail' + user.getId()}" id="email3" th:value="${user.getEmail()}" readonly/>
 
                                 <label class="mb-0" th:for="${'modalDeletePassword' + user.getId()}"
                                        for="password3">Password</label>
                                 <input class="form-control mb-2 h-75" name="password" type="password"
                                        th:id="${'modalDeletePassword' + user.getId()}" id="password3"
-                                       th:value="${user.getPassword()}"/>
+                                       th:value="${user.getPassword()}" readonly/>
 
                                 <label class="mb-0" th:for="${'modalDeleteRoles' + user.getId()}" for="roles3">Роли:</label>
                                 <select class="form-control w-100 m-0 mb-2 h-75" name="roles"
-                                        th:id="${'modalDeleteRoles' + user.getId()}" id="roles3" multiple="multiple" size="2">
+                                        th:id="${'modalDeleteRoles' + user.getId()}" id="roles3" multiple="multiple" size="2" readonly>
                                   <option th:each="role : ${roles}" th:text="${role.toString()}"
                                           th:value="${role.getId()}" value="1"
                                           th:selected="${user.getRoles().contains(role)}"
@@ -271,7 +271,6 @@
                 <form th:method="POST" th:action="@{/admin/new}">
                   <div class="font-weight-bolder container-fluid d-flex flex-column align-items-center mx-auto col-3"
                   style="font-size: small">
-                    <input type="text" name="username" style="display:none">
                     <input type="password" style="display:none">
 
                     <label class="mb-0" for="username">Username</label>
@@ -340,7 +339,9 @@
                     <td th:text="${#authentication.getPrincipal().getLastName()}">test1lastname</td>
                     <th class="font-weight-normal" th:text="${#authentication.getPrincipal().getEmail()}">test1email</th>
                     <td>
-                        <span th:each="role : ${#authentication.getAuthorities()}" th:text="${role.getAuthority()}"></span>
+                      <th:block th:each="role : ${#authentication.getAuthorities()}">
+                        <span th:text="${role.getAuthority()}">TEST_ROLE</span>
+                      </th:block>
                     </td>
                   </tr>
                 </tbody>
