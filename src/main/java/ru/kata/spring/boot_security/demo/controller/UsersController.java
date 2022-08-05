@@ -61,10 +61,9 @@ public class UsersController {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setUsername(username);
-        user.setPassword(password);
         user.dropRoles();
         userService.addRoles(user, rolesIds);
-        userService.update(user);
+        userService.update(user, password);
         return new RedirectView("/");
     }
 

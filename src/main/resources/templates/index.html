@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="fragments::head">
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,9 +11,9 @@
   <title th:text="${title}"></title>
 </head>
 <body class="container-fluid p-0">
-<header th:replace="fragments::header" class="bg-dark text-white d-flex justify-content-between align-items-center"
+<header class="bg-dark text-white d-flex justify-content-between align-items-center"
         style="padding: 16px 30px; font-size: x-large">
-  <div><span style="font-weight: bold">some@email.ru</span> with roles:
+  <div><span th:text="${#authentication.getPrincipal().getUsername()}" style="font-weight: bold">some@email.ru</span> with roles:
     <th:block th:each="role : ${#authentication.getAuthorities()}">
       <span th:text="*{role.getAuthority()}">TEST_ROLE</span>
     </th:block>
@@ -268,38 +268,38 @@
                 <p class="mb-0" style="font-size: x-large">Add new user</p>
               </div>
               <div class="card-body">
-                <form th:method="POST" th:action="@{/admin/new}"
-                      class="font-weight-bolder container-fluid d-flex flex-column align-items-center"
-                      style="font-size: smaller">
+                <form th:method="POST" th:action="@{/admin/new}">
+                  <div class="font-weight-bolder container-fluid d-flex flex-column align-items-center mx-auto col-3"
+                  style="font-size: small">
+                    <input type="text" name="username" style="display:none">
+                    <input type="password" style="display:none">
 
-                  <input type="text" name="username" style="display:none">
-                  <input type="password" style="display:none">
+                    <label class="mb-0" for="username">Username</label>
+                    <input class="form-control mb-3 h-50" name="username" type="text" id="username"
+                           autocomplete="off"/>
 
-                  <label class="mb-0" for="username">Username</label>
-                  <input class="form-control w-auto mb-3 h-50" name="username" type="text" id="username"
-                         autocomplete="off"/>
+                    <label class="mb-0" for="firstName">First name</label>
+                    <input class="form-control mb-3 h-75" name="firstName" type="text" id="firstName"/>
 
-                  <label class="mb-0" for="firstName">First name</label>
-                  <input class="form-control w-auto mb-3 h-75" name="firstName" type="text" id="firstName"/>
+                    <label class="mb-0" for="lastName">Last name</label>
+                    <input class="form-control mb-3 h-75" name="lastName" type="text" id="lastName"/>
 
-                  <label class="mb-0" for="lastName">Last name</label>
-                  <input class="form-control w-auto mb-3 h-75" name="lastName" type="text" id="lastName"/>
+                    <label class="mb-0" for="email">E-mail</label>
+                    <input class="form-control mb-3 h-75" name="email" type="text" id="email"/>
 
-                  <label class="mb-0" for="email">E-mail</label>
-                  <input class="form-control w-auto mb-3 h-75" name="email" type="text" id="email"/>
+                    <label class="mb-0" for="password">Password</label>
+                    <input class="form-control mb-3 h-75" name="password" type="password" id="password"
+                           autocomplete="off"/>
 
-                  <label class="mb-0" for="password">Password</label>
-                  <input class="form-control w-auto mb-3 h-75" name="password" type="password" id="password"
-                         autocomplete="off"/>
+                    <label class="mb-0" for="roles">Роли:</label>
+                    <select class="form-control mb-3 h-75 text-center p-1" name="roles" id="roles" multiple="multiple" size="2">
+                      <option th:each="role : ${roles}" th:text="${role.toString()}" th:value="${role.getId()}"/>
+                    </select>
 
-                  <label class="mb-0" for="roles">Роли:</label>
-                  <select class="form-control w-auto mb-3 h-75" name="roles" id="roles" multiple="multiple" size="2">
-                    <option th:each="role : ${roles}" th:text="${role.toString()}" th:value="${role.getId()}"/>
-                  </select>
-
-                  <br>
-                  <div sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                    <input class="btn btn-success btn-lg" type="submit" value="Add new user">
+                    <br>
+                    <div sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                      <input class="btn btn-success btn-lg" type="submit" value="Add new user">
+                    </div>
                   </div>
                 </form>
               </div>
@@ -333,15 +333,14 @@
                 </tr>
                 </thead>
                 <tbody>
+                  <tr>
                     <td th:text="${#authentication.getPrincipal().getId()}">1</td>
                     <td th:text="${#authentication.getPrincipal().getUsername()}">test1username</td>
                     <td th:text="${#authentication.getPrincipal().getFirstName()}">test1firstname</td>
                     <td th:text="${#authentication.getPrincipal().getLastName()}">test1lastname</td>
                     <th class="font-weight-normal" th:text="${#authentication.getPrincipal().getEmail()}">test1email</th>
                     <td>
-                      <th:block th:each="role : ${#authentication.getAuthorities()}">
-                        <span th:text="${role.getAuthority()}"></span>
-                      </th:block>
+                        <span th:each="role : ${#authentication.getAuthorities()}" th:text="${role.getAuthority()}"></span>
                     </td>
                   </tr>
                 </tbody>
