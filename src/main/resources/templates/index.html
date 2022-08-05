@@ -13,7 +13,8 @@
 <body class="container-fluid p-0">
 <header class="bg-dark text-white d-flex justify-content-between align-items-center"
         style="padding: 16px 30px; font-size: x-large">
-  <div><span th:text="${#authentication.getPrincipal().getUsername()}" style="font-weight: bold">some@email.ru</span> with roles:
+  <div><span th:text="${#authentication.getPrincipal().getUsername()}" style="font-weight: bold">some@email.ru</span>
+    with roles:
     <th:block th:each="role : ${#authentication.getAuthorities()}">
       <span th:text="${role.getAuthority()}">TEST_ROLE</span>
     </th:block>
@@ -27,9 +28,11 @@
   <div class="col-3 p-0 pt-3">
     <div class="p-0 nav flex-column nav-pills" id="v-pills-tab" role="tablist">
       <div class="list-group" id="list-tab" role="tablist">
-        <a sec:authorize="hasRole('ROLE_ADMIN')" class="list-group-item list-group-item-action active" id="list-admin-list" data-bs-toggle="list"
+        <a sec:authorize="hasRole('ROLE_ADMIN')" class="list-group-item list-group-item-action active"
+           id="list-admin-list" data-bs-toggle="list"
            href="index.html#list-admin" role="tab" aria-controls="list-admin">Admin</a>
-        <a th:class="${'list-group-item list-group-item-action' + (#request.isUserInRole('ROLE_ADMIN') ? '' : ' active')}" id="list-user-list" data-bs-toggle="list"
+        <a th:class="${'list-group-item list-group-item-action' + (#request.isUserInRole('ROLE_ADMIN') ? '' : ' active')}"
+           id="list-user-list" data-bs-toggle="list"
            href="#list-user" role="tab" aria-controls="list-user">User</a>
       </div>
     </div>
@@ -99,7 +102,8 @@
                       </td>
                       <td>
                         <a class="btn btn-danger text-white btn-sm" role="button" data-toggle="modal"
-                           th:data-target="${'#userDeleteModal' + user.getId()}" data-target="#userDeleteModal">Delete</a>
+                           th:data-target="${'#userDeleteModal' + user.getId()}"
+                           data-target="#userDeleteModal">Delete</a>
                       </td>
 
                     </tr>
@@ -169,7 +173,8 @@
                                 <br>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close
+                                </button>
                                 <button type="submit" class="btn btn-primary btn-sm">Edit</button>
                               </div>
                             </form>
@@ -180,7 +185,8 @@
 
                     <!-- Генерация модальных окон удаления пользователя -->
 
-                    <div class="modal fade" th:id="${'userDeleteModal' + user.getId()}" id="userDeleteModal" tabindex="-1"
+                    <div class="modal fade" th:id="${'userDeleteModal' + user.getId()}" id="userDeleteModal"
+                         tabindex="-1"
                          aria-labelledby="userDeleteModalLabel"
                          aria-hidden="true">
                       <div class="modal-dialog">
@@ -201,7 +207,8 @@
                                   style="font-size: small">
                                 <label class="mb-0" th:for="${'modalDeleteId' + user.getId()}" for="id3">ID</label>
                                 <input class="form-control mb-2 h-50" name="id" type="text"
-                                       th:id="${'modalDeleteId' + user.getId()}" id="id3" th:value="${user.getId()}" readonly/>
+                                       th:id="${'modalDeleteId' + user.getId()}" id="id3" th:value="${user.getId()}"
+                                       readonly/>
 
                                 <label class="mb-0" th:for="${'modalDeleteUsername' + user.getId()}"
                                        for="username3">Username</label>
@@ -221,9 +228,11 @@
                                        th:id="${'modalDeleteLasttName' + user.getId()}" id="lastName3"
                                        th:value="${user.getLastName()}" readonly/>
 
-                                <label class="mb-0" th:for="${'modalDeleteEmail' + user.getId()}" for="email3">E-mail</label>
+                                <label class="mb-0" th:for="${'modalDeleteEmail' + user.getId()}"
+                                       for="email3">E-mail</label>
                                 <input class="form-control mb-2 h-75" name="email" type="text"
-                                       th:id="${'modalDeleteEmail' + user.getId()}" id="email3" th:value="${user.getEmail()}" readonly/>
+                                       th:id="${'modalDeleteEmail' + user.getId()}" id="email3"
+                                       th:value="${user.getEmail()}" readonly/>
 
                                 <label class="mb-0" th:for="${'modalDeletePassword' + user.getId()}"
                                        for="password3">Password</label>
@@ -231,9 +240,11 @@
                                        th:id="${'modalDeletePassword' + user.getId()}" id="password3"
                                        th:value="${user.getPassword()}" readonly/>
 
-                                <label class="mb-0" th:for="${'modalDeleteRoles' + user.getId()}" for="roles3">Роли:</label>
+                                <label class="mb-0" th:for="${'modalDeleteRoles' + user.getId()}"
+                                       for="roles3">Роли:</label>
                                 <select class="form-control w-100 m-0 mb-2 h-75" name="roles"
-                                        th:id="${'modalDeleteRoles' + user.getId()}" id="roles3" multiple="multiple" size="2" readonly>
+                                        th:id="${'modalDeleteRoles' + user.getId()}" id="roles3" multiple="multiple"
+                                        size="2" readonly>
                                   <option th:each="role : ${roles}" th:text="${role.toString()}"
                                           th:value="${role.getId()}" value="1"
                                           th:selected="${user.getRoles().contains(role)}"
@@ -243,7 +254,8 @@
                                 <br>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close
+                                </button>
                                 <a class="btn btn-danger text-white btn-sm"
                                    th:href="'/admin/' + ${user.id} + '/delete'">Delete
                                 </a>
@@ -270,7 +282,7 @@
               <div class="card-body">
                 <form th:method="POST" th:action="@{/admin/new}">
                   <div class="font-weight-bolder container-fluid d-flex flex-column align-items-center mx-auto col-3"
-                  style="font-size: small">
+                       style="font-size: small">
                     <input type="password" style="display:none">
 
                     <label class="mb-0" for="username">Username</label>
@@ -291,7 +303,8 @@
                            autocomplete="off"/>
 
                     <label class="mb-0" for="roles">Роли:</label>
-                    <select class="form-control mb-3 h-75 text-center p-1" name="roles" id="roles" multiple="multiple" size="2">
+                    <select class="form-control mb-3 h-75 text-center p-1" name="roles" id="roles" multiple="multiple"
+                            size="2">
                       <option th:each="role : ${roles}" th:text="${role.toString()}" th:value="${role.getId()}"/>
                     </select>
 
@@ -309,7 +322,8 @@
 
       <!-- Страница User -->
 
-      <div th:class="${'tab-pane fade' + (#request.isUserInRole('ROLE_ADMIN') ? '' : 'show active')}" id="list-user" role="tabpanel" aria-labelledby="list-user-page">
+      <div th:class="${'tab-pane fade' + (#request.isUserInRole('ROLE_ADMIN') ? '' : 'show active')}" id="list-user"
+           role="tabpanel" aria-labelledby="list-user-page">
         <h1 class="font-weight-normal">User information-page</h1>
         <div class="tab-content" id="nav2-tabUser" role="tabpanel" aria-labelledby="list-admin-page">
           <div class="card">
@@ -332,18 +346,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td th:text="${#authentication.getPrincipal().getId()}">1</td>
-                    <td th:text="${#authentication.getPrincipal().getUsername()}">test1username</td>
-                    <td th:text="${#authentication.getPrincipal().getFirstName()}">test1firstname</td>
-                    <td th:text="${#authentication.getPrincipal().getLastName()}">test1lastname</td>
-                    <th class="font-weight-normal" th:text="${#authentication.getPrincipal().getEmail()}">test1email</th>
-                    <td>
-                      <th:block th:each="role : ${#authentication.getAuthorities()}">
-                        <span th:text="${role.getAuthority()}">TEST_ROLE</span>
-                      </th:block>
-                    </td>
-                  </tr>
+                <tr>
+                  <td th:text="${#authentication.getPrincipal().getId()}">1</td>
+                  <td th:text="${#authentication.getPrincipal().getUsername()}">test1username</td>
+                  <td th:text="${#authentication.getPrincipal().getFirstName()}">test1firstname</td>
+                  <td th:text="${#authentication.getPrincipal().getLastName()}">test1lastname</td>
+                  <th class="font-weight-normal" th:text="${#authentication.getPrincipal().getEmail()}">test1email</th>
+                  <td>
+                    <th:block th:each="role : ${#authentication.getAuthorities()}">
+                      <span th:text="${role.getAuthority()}">TEST_ROLE</span>
+                    </th:block>
+                  </td>
+                </tr>
                 </tbody>
               </table>
             </div>

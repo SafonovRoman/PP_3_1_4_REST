@@ -27,7 +27,8 @@ public class Role implements GrantedAuthority {
         return this.getName();
     }
 
-    public Role() {}
+    public Role() {
+    }
 
     public Role(String name) {
         this.name = name;
@@ -40,9 +41,7 @@ public class Role implements GrantedAuthority {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Role)) return false;
-
-        Role role = (Role) o;
+        if (!(o instanceof Role role)) return false;
 
         return getId().equals(role.getId());
     }

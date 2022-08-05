@@ -1,9 +1,7 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.context.HttpRequestResponseHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -51,13 +49,13 @@ public class UsersController {
 
     @PostMapping(value = "/admin/{id}")
     public RedirectView updateUser(ModelMap model,
-                             @PathVariable("id") Long id,
-                             @RequestParam("email") String email,
-                             @RequestParam("firstName") String firstName,
-                             @RequestParam("lastName") String lastName,
-                             @RequestParam("username") String username,
-                             @RequestParam("password") String password,
-                             @RequestParam(value = "roles", required = false) Long[] rolesIds) {
+                                   @PathVariable("id") Long id,
+                                   @RequestParam("email") String email,
+                                   @RequestParam("firstName") String firstName,
+                                   @RequestParam("lastName") String lastName,
+                                   @RequestParam("username") String username,
+                                   @RequestParam("password") String password,
+                                   @RequestParam(value = "roles", required = false) Long[] rolesIds) {
         User user = userService.getUser(id);
         user.setEmail(email);
         user.setFirstName(firstName);
