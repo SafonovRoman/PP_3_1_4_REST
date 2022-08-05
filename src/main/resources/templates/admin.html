@@ -95,7 +95,7 @@
                       </td>
                       <td>
                         <a class="btn btn-info text-white btn-sm" role="button" data-toggle="modal"
-                           th:data-target="${'#exampleModal' + user.getId()}" data-target="#exampleModal">Edit</a>
+                           th:data-target="${'#userEditModal' + user.getId()}" data-target="#exampleModal">Edit</a>
                       </td>
                       <td>
                         <a class="btn btn-danger text-white btn-sm"
@@ -104,9 +104,9 @@
 
                     </tr>
 
-                    <!-- Генерация модальных окон-->
+                    <!-- Генерация модальных окон редактирования пользователя -->
 
-                    <div class="modal fade" th:id="${'exampleModal' + user.getId()}" id="exampleModal" tabindex="-1"
+                    <div class="modal fade" th:id="${'userEditModal' + user.getId()}" id="exampleModal" tabindex="-1"
                          aria-labelledby="exampleModalLabel"
                          aria-hidden="true">
                       <div class="modal-dialog">
