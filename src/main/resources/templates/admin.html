@@ -99,7 +99,7 @@
                       </td>
                       <td>
                         <a class="btn btn-danger text-white btn-sm"
-                           th:href="'/admin/' + ${user.id} + '/delete'">Delete</a>
+                           th:data-target="${'#userDeleteModal' + user.getId()}" data-target="#userDeleteModal">Delete</a>
                       </td>
 
                     </tr>
@@ -157,9 +157,9 @@
                                        th:id="${'password' + user.getId()}" id="password2"
                                        th:value="${user.getPassword()}"/>
 
-                                <label class="mb-0" th:for="${'roles' + user.getId()}">Роли:</label>
+                                <label class="mb-0" th:for="${'roles' + user.getId()}" for="roles2">Роли:</label>
                                 <select class="form-control w-100 m-0 mb-2 h-75" name="roles"
-                                        th:id="${'roles' + user.getId()}" multiple="multiple" size="2">
+                                        th:id="${'roles' + user.getId()}" id="roles2" multiple="multiple" size="2">
                                   <option th:each="role : ${roles}" th:text="${role.toString()}"
                                           th:value="${role.getId()}" value="1"
                                           th:selected="${user.getRoles().contains(role)}"
@@ -177,6 +177,82 @@
                         </div>
                       </div>
                     </div>
+
+                    <!-- Генерация модальных окон удаления пользователя -->
+
+                    <div class="modal fade" th:id="${'userDeleteModal' + user.getId()}" id="userDeleteModal" tabindex="-1"
+                         aria-labelledby="userDeleteModalLabel"
+                         aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="userDeleteModalLabel">Edit user</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+
+                            <!-- Форма редактирования пользователя -->
+
+                            <form method="GET" th:action="${'admin/'}" action="admin/">
+                              <div
+                                  class="font-weight-bolder container-fluid d-flex flex-column align-items-center mx-auto col-6"
+                                  style="font-size: small">
+                                <label class="mb-0" th:for="${'modalDeleteId' + user.getId()}" for="id3">ID</label>
+                                <input class="form-control mb-2 h-50" name="id" type="text"
+                                       th:id="${'modalDeleteId' + user.getId()}" id="id3" th:value="${user.getId()}" readonly/>
+
+                                <label class="mb-0" th:for="${'modalDeleteUsername' + user.getId()}"
+                                       for="username3">Username</label>
+                                <input class="form-control mb-2 h-50" name="username" type="text"
+                                       th:id="${'modalDeleteUsername' + user.getId()}" id="username3"
+                                       th:value="${user.getUsername()}"/>
+
+                                <label class="mb-0" th:for="${'modalDeleteFirstName' + user.getId()}" for="firstName3">First
+                                  name</label>
+                                <input class="form-control mb-2 h-75" name="firstName" type="text"
+                                       th:id="${'modalDeleteFirstName' + user.getId()}" id="firstName3"
+                                       th:value="${user.getFirstName()}"/>
+
+                                <label class="mb-0" th:for="${'modalDeleteLasttName' + user.getId()}" for="lastName3">Last
+                                  name</label>
+                                <input class="form-control mb-2 h-75" name="lastName" type="text"
+                                       th:id="${'modalDeleteLasttName' + user.getId()}" id="lastName3"
+                                       th:value="${user.getLastName()}"/>
+
+                                <label class="mb-0" th:for="${'modalDeleteEmail' + user.getId()}" for="email3">E-mail</label>
+                                <input class="form-control mb-2 h-75" name="email" type="text"
+                                       th:id="${'modalDeleteEmail' + user.getId()}" id="email3" th:value="${user.getEmail()}"/>
+
+                                <label class="mb-0" th:for="${'modalDeletePassword' + user.getId()}"
+                                       for="password3">Password</label>
+                                <input class="form-control mb-2 h-75" name="password" type="password"
+                                       th:id="${'modalDeletePassword' + user.getId()}" id="password3"
+                                       th:value="${user.getPassword()}"/>
+
+                                <label class="mb-0" th:for="${'modalDeleteRoles' + user.getId()}" for="roles3">Роли:</label>
+                                <select class="form-control w-100 m-0 mb-2 h-75" name="roles"
+                                        th:id="${'modalDeleteRoles' + user.getId()}" id="roles3" multiple="multiple" size="2">
+                                  <option th:each="role : ${roles}" th:text="${role.toString()}"
+                                          th:value="${role.getId()}" value="1"
+                                          th:selected="${user.getRoles().contains(role)}"
+                                          th:disabled="${!#request.isUserInRole('ROLE_ADMIN')}">ROLE
+                                  </option>
+                                </select>
+                                <br>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a class="btn btn-danger text-white btn-sm"
+                                   th:href="'/admin/' + ${user.id} + '/delete'">Delete</a>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </th:block>
                   </tbody>
                 </table>
