@@ -98,7 +98,7 @@
                            th:data-target="${'#userEditModal' + user.getId()}" data-target="#userEditModal">Edit</a>
                       </td>
                       <td>
-                        <a class="btn btn-danger text-white btn-sm"
+                        <a class="btn btn-danger text-white btn-sm" role="button" data-toggle="modal"
                            th:data-target="${'#userDeleteModal' + user.getId()}" data-target="#userDeleteModal">Delete</a>
                       </td>
 
@@ -169,8 +169,8 @@
                                 <br>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Edit</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Edit</button>
                               </div>
                             </form>
                           </div>
@@ -186,16 +186,16 @@
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="userDeleteModalLabel">Edit user</h5>
+                            <h5 class="modal-title" id="userDeleteModalLabel">Delete user</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
 
-                            <!-- Форма редактирования пользователя -->
+                            <!-- Форма удаления пользователя -->
 
-                            <form method="GET" th:action="${'admin/'}" action="admin/">
+                            <form>
                               <div
                                   class="font-weight-bolder container-fluid d-flex flex-column align-items-center mx-auto col-6"
                                   style="font-size: small">
@@ -243,9 +243,10 @@
                                 <br>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                                 <a class="btn btn-danger text-white btn-sm"
-                                   th:href="'/admin/' + ${user.id} + '/delete'">Delete</a>
+                                   th:href="'/admin/' + ${user.id} + '/delete'">Delete
+                                </a>
                               </div>
                             </form>
                           </div>
