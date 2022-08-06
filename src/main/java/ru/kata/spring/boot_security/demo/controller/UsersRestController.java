@@ -33,7 +33,7 @@ public class UsersRestController {
     }
 
     @DeleteMapping ("/admin/api")
-    public Set<User> userDelete(@RequestParam(value = "id", required = true) Long id) {
+    public Set<User> userDelete(@RequestParam(value = "id") Long id) {
         userService.delete(id);
         return userService.listUsers();
     }
