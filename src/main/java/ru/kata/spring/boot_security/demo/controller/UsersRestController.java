@@ -21,8 +21,8 @@ public class UsersRestController {
     public Set<User> userGetList() {
         return userService.listUsers();
     }
-    @GetMapping("/admin/api")
-    public User userGet(@RequestParam(value = "id") Long id) {
+    @GetMapping("/admin/api/user/{id}")
+    public User userGet(@PathVariable Long id) {
         return userService.getUser(id);
     }
 

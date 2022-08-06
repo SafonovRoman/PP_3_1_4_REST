@@ -24,6 +24,16 @@ public class UsersController {
         this.roleService = roleService;
     }
 
+    @GetMapping(value = "/index2")
+    public String indexPage2(ModelMap model, Authentication authentication) {
+        if (authentication.getAuthorities().contains(roleService.getRole(2L))) {
+            model.addAttribute("users", userService.listUsers());
+        }
+        List<Role> roles = roleService.listRoles();
+        model.addAttribute("roles", roles);
+        return "index2";
+    }
+
     @GetMapping(value = "/")
     public String indexPage(ModelMap model, Authentication authentication) {
         if (authentication.getAuthorities().contains(roleService.getRole(2L))) {
