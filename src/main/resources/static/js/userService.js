@@ -1,3 +1,3 @@
-function showAlert() {
-    alert("The button was clicked!");
-}
+window.onload = function() {
+    alert('Page is loaded');
+};
