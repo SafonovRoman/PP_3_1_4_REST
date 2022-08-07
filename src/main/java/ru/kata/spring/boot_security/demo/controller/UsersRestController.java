@@ -1,12 +1,17 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.List;
 
 @RestController
 public class UsersRestController {
@@ -17,11 +22,11 @@ public class UsersRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/admin/api")
-    public Set<User> userGetList() {
-        return userService.listUsers();
+    @GetMapping(value = "/admin/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<User>> userGetList() {
+        return new ResponseEntity<>(userService.listUsers(), HttpStatus.OK);
     }
-    @GetMapping("/admin/api/user/{id}")
+    @GetMapping("/admin/users/api/user/{id}")
     public User userGet(@PathVariable Long id) {
         return userService.getUser(id);
     }
