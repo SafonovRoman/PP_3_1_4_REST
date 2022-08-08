@@ -100,7 +100,7 @@ function updateModal(user, modal) {
     for (let roleIndex in user.roles) {
         userSelectedRoles.push(user.roles[roleIndex].id)
     }
-    document.querySelectorAll("#" + modal.id + " .rolesField").forEach((optionNode) => {
+    document.querySelectorAll("#" + modal.id + " .rolesField option").forEach((optionNode) => {
         if (userSelectedRoles.includes(Number(optionNode.getAttribute("value")))) {
             optionNode.setAttribute("selected", true)
         } else {
