@@ -84,28 +84,7 @@
                   </tr>
                   </thead>
                   <tbody id="users-table-body">
-<!--                    <tr>-->
-<!--                      <td th:text="${user.getId()}">1</td>-->
-<!--                      <td th:text="${user.getUsername()}">test1username</td>-->
-<!--                      <td th:text="${user.getFirstName()}">test1firstname</td>-->
-<!--                      <td th:text="${user.getLastName()}">test1lastname</td>-->
-<!--                      <th class="font-weight-normal" th:text="${user.getEmail()}">test1email</th>-->
-<!--                      <td>-->
-<!--                        <th:block th:each="role : ${user.getAuthorities()}">-->
-<!--                          <span th:text="${role.getAuthority()}"></span>-->
-<!--                        </th:block>-->
-<!--                      </td>-->
-<!--                      <td>-->
-<!--                        <a class="btn btn-info text-white btn-sm" role="button" data-toggle="modal"-->
-<!--                           th:data-target="${'#userEditModal' + user.getId()}" data-target="#userEditModal">Edit</a>-->
-<!--                      </td>-->
-<!--                      <td>-->
-<!--                        <a class="btn btn-danger text-white btn-sm" role="button" data-toggle="modal"-->
-<!--                           th:data-target="${'#userDeleteModal' + user.getId()}"-->
-<!--                           data-target="#userDeleteModal">Delete</a>-->
-<!--                      </td>-->
-
-<!--                    </tr>-->
+                    <!-- Заполняется JS -->
                   </tbody>
                 </table>
               </div>
@@ -229,28 +208,28 @@
           <div
               class="font-weight-bolder container-fluid d-flex flex-column align-items-center mx-auto col-6"
               style="font-size: small">
-            <label class="mb-0" for="id2">ID</label>
-            <input class="form-control mb-2 h-50" name="id" type="text" id="id2" readonly/>
+            <label class="mb-0" for="editModalIdField">ID</label>
+            <input class="form-control mb-2 h-50" name="id" type="text" id="editModalIdField" readonly/>
 
-            <label class="mb-0" for="username2">Username</label>
-            <input class="form-control mb-2 h-50" name="username" type="text" id="username2"/>
+            <label class="mb-0" for="editModalUsernameField">Username</label>
+            <input class="form-control mb-2 h-50" name="username" type="text" id="editModalUsernameField"/>
 
-            <label class="mb-0" for="firstName2">First
+            <label class="mb-0" for="editModalFirstnameField">First
               name</label>
-            <input class="form-control mb-2 h-75" name="firstName" type="text" id="firstName2"/>
+            <input class="form-control mb-2 h-75" name="firstName" type="text" id="editModalFirstnameField"/>
 
-            <label class="mb-0" for="lastName2">Last
+            <label class="mb-0" for="editModalLastnameField">Last
               name</label>
-            <input class="form-control mb-2 h-75" name="lastName" type="text" id="lastName2"/>
+            <input class="form-control mb-2 h-75" name="lastName" type="text" id="editModalLastnameField"/>
 
-            <label class="mb-0" for="email2">E-mail</label>
-            <input class="form-control mb-2 h-75" name="email" type="text" id="email2"/>
+            <label class="mb-0" for="editModalEmailField">E-mail</label>
+            <input class="form-control mb-2 h-75" name="email" type="text" id="editModalEmailField"/>
 
-            <label class="mb-0" for="password2">Password</label>
-            <input class="form-control mb-2 h-75" name="password" type="password" id="password2"/>
+            <label class="mb-0" for="editModalPasswordField">Password</label>
+            <input class="form-control mb-2 h-75" name="password" type="password" id="editModalPasswordField"/>
 
-            <label class="mb-0" for="roles2">Роли:</label>
-            <select class="form-control w-100 m-0 mb-2 h-75" name="roles" id="roles2" multiple="multiple" size="2">
+            <label class="mb-0" for="editModalRolesField">Роли:</label>
+            <select class="form-control w-100 m-0 mb-2 h-75" name="roles" id="editModalRolesField" multiple="multiple" size="2">
               <option value="1">ROLE</option>
             </select>
             <br>
