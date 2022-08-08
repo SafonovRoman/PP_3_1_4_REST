@@ -44,7 +44,7 @@
 
       <!-- Страница админа -->
 
-      <div sec:authorize="hasRole('ROLE_ADMIN')" class="tab-pane fade show active" id="list-admin">
+      <div class="tab-pane fade show active" id="list-admin">
         <h1 class="font-weight-normal">Admin panel</h1>
 
         <ul class="nav nav-tabs" id="h-tabs-tab" role="tablist" aria-orientation="horizontal">
@@ -209,28 +209,28 @@
               class="font-weight-bolder container-fluid d-flex flex-column align-items-center mx-auto col-6"
               style="font-size: small">
             <label class="mb-0" for="editModalIdField">ID</label>
-            <input class="form-control mb-2 h-50" name="id" type="text" id="editModalIdField" readonly/>
+            <input class="idField form-control mb-2 h-50" name="id" type="text" id="editModalIdField" readonly/>
 
             <label class="mb-0" for="editModalUsernameField">Username</label>
-            <input class="form-control mb-2 h-50" name="username" type="text" id="editModalUsernameField"/>
+            <input class="usernameField form-control mb-2 h-50" name="username" type="text" id="editModalUsernameField"/>
 
             <label class="mb-0" for="editModalFirstnameField">First
               name</label>
-            <input class="form-control mb-2 h-75" name="firstName" type="text" id="editModalFirstnameField"/>
+            <input class="firstNameField form-control mb-2 h-75" name="firstName" type="text" id="editModalFirstnameField"/>
 
             <label class="mb-0" for="editModalLastnameField">Last
               name</label>
-            <input class="form-control mb-2 h-75" name="lastName" type="text" id="editModalLastnameField"/>
+            <input class="lastNameField form-control mb-2 h-75" name="lastName" type="text" id="editModalLastnameField"/>
 
             <label class="mb-0" for="editModalEmailField">E-mail</label>
-            <input class="form-control mb-2 h-75" name="email" type="text" id="editModalEmailField"/>
+            <input class="emailField form-control mb-2 h-75" name="email" type="text" id="editModalEmailField"/>
 
             <label class="mb-0" for="editModalPasswordField">Password</label>
-            <input class="form-control mb-2 h-75" name="password" type="password" id="editModalPasswordField"/>
+            <input class="passwordField form-control mb-2 h-75" name="password" type="password" id="editModalPasswordField"/>
 
             <label class="mb-0" for="editModalRolesField">Роли:</label>
-            <select class="form-control w-100 m-0 mb-2 h-75" name="roles" id="editModalRolesField" multiple="multiple" size="2">
-              <option value="1">ROLE</option>
+            <select class="rolesField form-control mb-3 h-75 text-center p-1" name="roles" id="editModalRolesField" multiple="multiple" size="2">
+              <option th:each="role : ${roles}" th:text="${role.toString()}" th:value="${role.getId()}"/>
             </select>
             <br>
           </div>
@@ -287,7 +287,7 @@
 
             <label class="mb-0" for="roles3">Роли:</label>
             <select class="form-control w-100 m-0 mb-2 h-75" name="roles" id="roles3" multiple="multiple" size="2">
-              <option value="1" disabled> SOME_ROLE</option>
+              <option th:each="role : ${roles}" th:text="${role.toString()}" th:value="${role.getId()}"/>
             </select>
             <br>
           </div>

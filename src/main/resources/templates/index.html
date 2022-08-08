@@ -307,8 +307,9 @@
                             size="2">
                       <option th:each="role : ${roles}" th:text="${role.toString()}" th:value="${role.getId()}"/>
                     </select>
+
                     <br>
-                    <div>
+                    <div sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                       <input class="btn btn-success btn-lg" type="submit" value="Add new user">
                     </div>
                   </div>

@@ -20,13 +20,13 @@ public class UsersRestController {
         this.userService = userService;
     }
 
-    @ResponseBody
+//    @ResponseBody
     @GetMapping(value = "/admin/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<User>> userGetList() {
         ResponseEntity<Set<User>> response= new ResponseEntity<>(userService.listUsers(), HttpStatus.OK);
         return response;
     }
-    @GetMapping("/admin/users/api/user/{id}")
+    @GetMapping(value = "/admin/api/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User userGet(@PathVariable Long id) {
         return userService.getUser(id);
     }
