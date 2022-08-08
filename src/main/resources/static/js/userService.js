@@ -5,6 +5,7 @@ const tableBody = document.querySelector('#users-table-body')
 updateUsersTable()
 
 function updateUsersTable() {
+    tableBody.innerHTML = ""
     fetch("/admin/api/users/").then(response => response.json())
         .then(addUsersToTable)
 }
