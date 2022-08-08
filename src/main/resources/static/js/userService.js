@@ -51,13 +51,14 @@ function updateUsersTable() {
             let editButtonCell = document.createElement('td')
             let editButtonLink = document.createElement('a')
             editButtonLink.innerHTML = `<a class=\"btn btn-info text-white btn-sm\" role=\"button\" data-toggle=\"modal\" data-target=\"#userEditModal\" data-userId=\"${user.id}\">Edit</a>`
-            editButtonCell.appendChild(editButtonLink)
             editButtonLink.onclick = (event) => openEditModal(event)
+            editButtonCell.appendChild(editButtonLink)
             newRow.appendChild(editButtonCell)
 
             let deleteButtonCell = document.createElement('td')
             let deleteButtonLink = document.createElement('a')
-            deleteButtonLink.innerHTML = "<a class=\"btn btn-danger text-white btn-sm\" role=\"button\" data-toggle=\"modal\" data-target=\"#userDeleteModal\">Delete</a>"
+            deleteButtonLink.innerHTML = `<a class=\"btn btn-danger text-white btn-sm\" role=\"button\" data-toggle=\"modal\" data-target=\"#userDeleteModal\" data-userId=\"${user.id}\">Delete</a>`
+            deleteButtonLink.onclick = (event) => openDeleteModal(event)
             deleteButtonCell.appendChild(deleteButtonLink)
             newRow.appendChild(deleteButtonCell)
 
@@ -71,26 +72,13 @@ function openEditModal(event) {
         .then((data) => {updateModal(data, editModal)})
 }
 
-
-    // let userRow = document.querySelector("#userRowId_" + userId)
-    // document.querySelector("#editModalIdField").setAttribute("value", userId)
-    // document.querySelector("#editModalUsernameField").setAttribute("value", document.querySelector("#usernameCell_" + userId).textContent)
-    // document.querySelector("#editModalFirstnameField").setAttribute("value", document.querySelector("#firstNameCell_" + userId).textContent)
-    // document.querySelector("#editModalLastnameField").setAttribute("value", document.querySelector("#lastNameCell_" + userId).textContent)
-    // document.querySelector("#editModalFirstnameField").setAttribute("value", document.querySelector("#firstNameCell_" + userId).textContent)
-    // document.querySelector("#editModalEmailField").setAttribute("value", document.querySelector("#emailCell_" + userId).textContent)
-    //
-    // document.querySelectorAll("#rolesCell_" + userId + " span").forEach((spanNode) => {
-
-
 function openDeleteModal(event) {
     let userId = event.target.dataset.userid
     fetch("/admin/api/users/" + userId).then(response => response.json())
-        .then((data) => {updateModal(data, editModal)})
+        .then((data) => {updateModal(data, deleteModal)})
 }
 
 function updateModal(user, modal) {
-    document.querySelector("#" + modal.id + " .usernameField")
     document.querySelector("#" + modal.id + " .idField").setAttribute("value", user.id)
     document.querySelector("#" + modal.id + " .usernameField").setAttribute("value", user.username)
     document.querySelector("#" + modal.id + " .firstNameField").setAttribute("value", user.firstName)
