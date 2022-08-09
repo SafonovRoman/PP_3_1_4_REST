@@ -3,12 +3,8 @@ const deleteModalForm = document.querySelector('#userDeleteForm')
 const newUserForm = document.querySelector("#newUserForm")
 const userEditForm = document.querySelector("#userEditForm")
 
-drawUsersTable()
-
-function drawUsersTable() {
-    fetch("/admin/api/users").then(response => response.json())
-        .then(updateUsersTable)
-}
+fetch("/admin/api/users").then(response => response.json())
+    .then(updateUsersTable)
 
 function updateUsersTable(users) {
     tableBody.innerHTML = ""
