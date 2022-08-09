@@ -1,6 +1,9 @@
 const tableBody = document.querySelector('#users-table-body')
-const editModal = document.querySelector('#userEditModal')
-const deleteModal = document.querySelector('#userDeleteModal')
+const editModalForm = document.querySelector('#userEditForm')
+const deleteModalForm = document.querySelector('#userDeleteForm')
+const newUserForm = document.querySelector("#newUserForm")
+const userEditForm = document.querySelector("#userEditForm")
+newUserForm.reset()
 
 
 drawUsersTable()
@@ -70,26 +73,25 @@ function updateUsersTable(users) {
 function openEditModal(event) {
     let userId = event.target.dataset.userid
     fetch("/admin/api/users/" + userId).then(response => response.json())
-        .then((data) => {updateModal(data, editModal)})
+        .then((data) => {updateModal(data, editModalForm)})
 }
 
 function openDeleteModal(event) {
     let userId = event.target.dataset.userid
     fetch("/admin/api/users/" + userId).then(response => response.json())
-        .then((data) => {updateModal(data, deleteModal)})
+        .then((data) => {updateModal(data, deleteModalForm)})
 }
 
-function updateModal(user, modal) {
-    document.querySelector("#" + modal.id + " .idField").setAttribute("value", user.id)
-    document.querySelector("#" + modal.id + " .usernameField").setAttribute("value", user.username)
-    document.querySelector("#" + modal.id + " .firstNameField").setAttribute("value", user.firstName)
-    document.querySelector("#" + modal.id + " .lastNameField").setAttribute("value", user.lastName)
-    document.querySelector("#" + modal.id + " .emailField").setAttribute("value", user.email)
+function updateModal(user, form) {
+    for (let key in user) {
+        let inputField = form.querySelector(`input[name=\"${key}\"]`)
+        if (inputField != null) inputField.value = user[key]
+    }
     let userSelectedRoles = []
     for (let roleIndex in user.roles) {
         userSelectedRoles.push(user.roles[roleIndex].id)
     }
-    document.querySelectorAll("#" + modal.id + " .rolesField option").forEach((optionNode) => {
+    form.querySelectorAll("option").forEach((optionNode) => {
         if (userSelectedRoles.includes(Number(optionNode.getAttribute("value")))) {
             optionNode.setAttribute("selected", true)
         } else {
@@ -99,16 +101,7 @@ function updateModal(user, modal) {
 }
 
 function sendUpdateRequest() {
-    let user = {};
-    let form = document.querySelector("#userEditModal form")
-    new FormData(form).forEach((value, key) => user[key] = value);
-    user["roles"] = []
-    form.querySelectorAll('select option').forEach((roleOption) => {
-        user["roles"].push({
-            "id": roleOption["value"],
-            "name": roleOption["innerText"]
-        })
-    })
+    let user = createUserObject(userEditForm)
     fetch("/admin/api/users/", {
         method: "PUT",
         headers: {
@@ -135,5 +128,29 @@ function sendDeleteRequest() {
         .then(response => response.json()).then(updateUsersTable)
 }
 
+function sendCreateRequest() {
+    let user = createUserObject(newUserForm)
+    fetch("/admin/api/users/", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(user)
+    })
+        .then(response => response.json()).then(updateUsersTable)
+    document.querySelector("#l-admin-page").dispatchEvent(new MouseEvent("click"))
+    newUserForm.reset()
+}
 
-
+function createUserObject(form) {
+    let user = {};
+    new FormData(form).forEach((value, key) => user[key] = value);
+    user["roles"] = []
+    form.querySelectorAll('select option').forEach((roleOption) => {
+        user["roles"].push({
+            "id": roleOption["value"],
+            "name": roleOption["innerText"]
+        })
+    })
+    return user
+}

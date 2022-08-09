@@ -50,7 +50,7 @@
         <ul class="nav nav-tabs" id="h-tabs-tab" role="tablist" aria-orientation="horizontal">
           <li class="nav-item">
             <a class="nav-link active" id="l-admin-page" data-bs-toggle="list"
-               href="index.html#page-admin" role="tab" aria-controls="page-admin">Users table</a>
+               href="#page-admin" role="tab" aria-controls="page-admin">Users table</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="page-user-page" data-bs-toggle="list"
@@ -129,7 +129,7 @@
 
                     <br>
                     <div sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                      <input class="btn btn-success btn-lg" type="button" value="Add new user">
+                      <input class="btn btn-success btn-lg" type="button" onclick="sendCreateRequest()" value="Add new user">
                     </div>
                   </div>
                 </form>
@@ -166,16 +166,16 @@
                 </thead>
                 <tbody>
                 <tr>
-<!--                  <td th:text="${#authentication.getPrincipal().getId()}">1</td>-->
-<!--                  <td th:text="${#authentication.getPrincipal().getUsername()}">test1username</td>-->
-<!--                  <td th:text="${#authentication.getPrincipal().getFirstName()}">test1firstname</td>-->
-<!--                  <td th:text="${#authentication.getPrincipal().getLastName()}">test1lastname</td>-->
-<!--                  <th class="font-weight-normal" th:text="${#authentication.getPrincipal().getEmail()}">test1email</th>-->
-<!--                  <td>-->
-<!--                    <th:block th:each="role : ${#authentication.getAuthorities()}">-->
-<!--                      <span th:text="${role.getAuthority()}">TEST_ROLE</span>-->
-<!--                    </th:block>-->
-<!--                  </td>-->
+                  <td th:text="${#authentication.getPrincipal().getId()}">1</td>
+                  <td th:text="${#authentication.getPrincipal().getUsername()}">test1username</td>
+                  <td th:text="${#authentication.getPrincipal().getFirstName()}">test1firstname</td>
+                  <td th:text="${#authentication.getPrincipal().getLastName()}">test1lastname</td>
+                  <th class="font-weight-normal" th:text="${#authentication.getPrincipal().getEmail()}">test1email</th>
+                  <td>
+                    <th:block th:each="role : ${#authentication.getAuthorities()}">
+                      <span th:text="${role.getAuthority()}">TEST_ROLE</span>
+                    </th:block>
+                  </td>
                 </tr>
                 </tbody>
               </table>

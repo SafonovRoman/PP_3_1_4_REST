@@ -31,7 +31,7 @@ public class UsersRestController {
         return userService.getUser(id);
     }
 
-    @PostMapping("/admin/api/users")
+    @PostMapping(value = "/admin/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public Set<User> userAdd(@RequestBody User user) {
         userService.add(user);
         return userService.listUsers();
