@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.utilities.UserWithPassword;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.Map;
@@ -37,8 +38,8 @@ public class UsersRestController {
     }
 
     @PutMapping(value = "/admin/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<User> userUpdate(@RequestBody Map<String, Object> requestBody) {
-        userService.update((User) requestBody.get("user"), (String) requestBody.get("password"));
+    public Set<User> userUpdate(@RequestBody UserWithPassword userEntry) {
+        userService.update(userEntry.user, userEntry.password);
         return userService.listUsers();
     }
 
