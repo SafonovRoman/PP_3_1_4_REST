@@ -9,14 +9,14 @@ fetch("/admin/api/users").then(response => response.json())
 function updateUsersTable(users) {
     tableBody.innerHTML = ""
     users.forEach((user) => {
-        let newRowInner = `
+        let newRow = document.createElement('tr')
+        newRow["innerHTML"] = `
                   <td>${user.id}</td>
                   <td>${user.username}</td>
                   <td>${user.firstName}</td>
                   <td>${user.lastName}</td>
-                  <td>${user.email}</td>`
-        let newRow = document.createElement('tr')
-        newRow["innerHTML"] = newRowInner
+                  <td>${user.email}</td>
+`
         let rolesCell = document.createElement('td')
         for (let roleId in user.roles) {
             let newSpan = document.createElement('span')

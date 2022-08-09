@@ -27,26 +27,26 @@ public class UsersRestController {
         return new ResponseEntity<>(userService.listUsers(), HttpStatus.OK);
     }
     @GetMapping(value = "/admin/api/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User userGet(@PathVariable Long id) {
-        return userService.getUser(id);
+    public ResponseEntity<User> userGet(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<User> userAdd(@RequestBody User user) {
+    public ResponseEntity<Set<User>> userAdd(@RequestBody User user) {
         userService.add(user);
-        return userService.listUsers();
+        return new ResponseEntity<>(userService.listUsers(), HttpStatus.OK);
     }
 
     @PutMapping(value = "/admin/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<User> userUpdate(@RequestBody UserWithPassword userEntry) {
+    public ResponseEntity<Set<User>> userUpdate(@RequestBody UserWithPassword userEntry) {
         userService.update(userEntry.user, userEntry.password);
-        return userService.listUsers();
+        return new ResponseEntity<>(userService.listUsers(), HttpStatus.OK);
     }
 
     @DeleteMapping (value = "/admin/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<User> userDelete(@RequestBody Map.Entry<String, Long> userInfo)  {
+    public ResponseEntity<Set<User>> userDelete(@RequestBody Map.Entry<String, Long> userInfo)  {
         userService.delete(userInfo.getValue());
-        return userService.listUsers();
+        return new ResponseEntity<>(userService.listUsers(), HttpStatus.OK);
     }
 }
 
