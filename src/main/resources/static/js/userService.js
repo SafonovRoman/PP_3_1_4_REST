@@ -122,5 +122,18 @@ function sendUpdateRequest() {
         .then(response => response.json()).then(updateUsersTable)
 }
 
+function sendDeleteRequest() {
+    let userId = document.querySelector('#deleteModalIdField').getAttribute("value")
+    fetch("/admin/api/users/", {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(
+            {"id": userId})
+    })
+        .then(response => response.json()).then(updateUsersTable)
+}
+
 
 

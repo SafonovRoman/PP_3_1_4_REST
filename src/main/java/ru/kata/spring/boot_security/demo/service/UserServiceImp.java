@@ -47,10 +47,7 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void update(User user, String password) {
-        if (!(Objects.equals(password, "") |
-                password == null |
-                Objects.equals(user.getPassword(), passwordEncoder.encode(password)) |
-                Objects.equals(user.getPassword(), password))) {
+        if (password != null & !Objects.equals(password, "") & !Objects.equals(user.getPassword(), passwordEncoder.encode(password)) & !Objects.equals(user.getPassword(), password)) {
             user.setPassword(passwordEncoder.encode(password));
         }
         userDao.update(user);

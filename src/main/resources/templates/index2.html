@@ -267,26 +267,26 @@
           <div
               class="font-weight-bolder container-fluid d-flex flex-column align-items-center mx-auto col-6"
               style="font-size: small">
-            <label class="mb-0" for="id3">ID</label>
-            <input class="idField form-control mb-2 h-50" name="id" type="text" id="id3" readonly/>
+            <label class="mb-0" for="deleteModalIdField">ID</label>
+            <input class="idField form-control mb-2 h-50" name="id" type="text" id="deleteModalIdField" readonly/>
 
-            <label class="mb-0" for="username3">Username</label>
-            <input class="usernameField form-control mb-2 h-50" name="username" type="text" id="username3" readonly/>
+            <label class="mb-0" for="deleteModalUsernameField">Username</label>
+            <input class="usernameField form-control mb-2 h-50" name="username" type="text" id="deleteModalUsernameField" readonly/>
 
-            <label class="mb-0" for="firstName3">First name</label>
-            <input class="firstNameField form-control mb-2 h-75" name="firstName" type="text" id="firstName3" readonly/>
+            <label class="mb-0" for="deleteModalFirstNameField">First name</label>
+            <input class="firstNameField form-control mb-2 h-75" name="firstName" type="text" id="deleteModalFirstNameField" readonly/>
 
-            <label class="mb-0" for="lastName3">Last name</label>
-            <input class="lastNameField form-control mb-2 h-75" name="lastName" type="text" id="lastName3" readonly/>
+            <label class="mb-0" for="deleteModalLastNameField">Last name</label>
+            <input class="lastNameField form-control mb-2 h-75" name="lastName" type="text" id="deleteModalLastNameField" readonly/>
 
-            <label class="mb-0" for="email3">E-mail</label>
-            <input class="emailField form-control mb-2 h-75" name="email" type="text" id="email3" readonly/>
+            <label class="mb-0" for="deleteModalEmailField">E-mail</label>
+            <input class="emailField form-control mb-2 h-75" name="email" type="text" id="deleteModalEmailField" readonly/>
 
-            <label class="mb-0" for="password3">Password</label>
-            <input class="passwordField form-control mb-2 h-75" name="password" type="password" id="password3" readonly/>
+            <label class="mb-0" for="deleteModalPasswordField">Password</label>
+            <input class="passwordField form-control mb-2 h-75" name="password" type="password" id="deleteModalPasswordField" readonly/>
 
-            <label class="mb-0" for="roles3">Роли:</label>
-            <select class="rolesField form-control w-100 m-0 mb-2 h-75" name="roles" id="roles3" multiple="multiple" size="2" disabled>
+            <label class="mb-0" for="deleteModalRolesField">Роли:</label>
+            <select class="rolesField form-control w-100 m-0 mb-2 h-75" name="roles" id="deleteModalRolesField" multiple="multiple" size="2" disabled>
               <option th:each="role : ${roles}" th:text="${role.toString()}" th:value="${role.getId()}"/>
             </select>
             <br>
@@ -294,7 +294,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close
             </button>
-            <div class="btn btn-danger text-white btn-sm">Delete</div>
+            <div class="btn btn-danger text-white btn-sm" onclick="sendDeleteRequest()">Delete</div>
           </div>
         </form>
       </div>
