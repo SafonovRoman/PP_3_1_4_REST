@@ -27,11 +27,11 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUserByUsername(String username) {
-        List<User> users = entityManager.createQuery("select u from User u left join fetch u.roles where u.username = :username").setParameter("username", username).getResultList();
-        if (users.size() == 0) {
+        User user = (User) entityManager.createQuery("select u from User u left join fetch u.roles where u.username = :username").setParameter("username", username).getSingleResult();
+        if (user == null) {
             throw new UsernameNotFoundException("Пользователя с таким username не существует");
         } else {
-            return users.get(0);
+            return user;
         }
     }
 

@@ -3,8 +3,6 @@ const editModalForm = document.querySelector('#userEditForm')
 const deleteModalForm = document.querySelector('#userDeleteForm')
 const newUserForm = document.querySelector("#newUserForm")
 const userEditForm = document.querySelector("#userEditForm")
-newUserForm.reset()
-
 
 drawUsersTable()
 
@@ -79,7 +77,7 @@ function openEditModal(event) {
 function openDeleteModal(event) {
     let userId = event.target.dataset.userid
     fetch("/admin/api/users/" + userId).then(response => response.json())
-        .then((data) => {updateModal(data, deleteModalForm)})
+        .then((data) => {console.log(data); updateModal(data, deleteModalForm)})
 }
 
 function updateModal(user, form) {
@@ -88,7 +86,7 @@ function updateModal(user, form) {
         if (inputField != null) inputField.value = user[key]
     }
     form.querySelectorAll("option").forEach((optionNode) => {
-        if (user.roles.find(element => element.id === Number(optionNode["value"]))) {
+        if (user.roles.findIndex(element => element.id === Number(optionNode["value"])) >= 0) {
             optionNode.setAttribute("selected", true)
         } else {
             optionNode.removeAttribute("selected")
@@ -105,14 +103,14 @@ function sendUpdateRequest() {
         },
         body: JSON.stringify(
             {"user": user,
-                "password": document.querySelector("#editModalPasswordField").getAttribute("value")
+                "password": document.querySelector("#editModalPasswordField")["value"]
             })
     })
         .then(response => response.json()).then(updateUsersTable)
 }
 
 function sendDeleteRequest() {
-    let userId = document.querySelector('#deleteModalIdField').getAttribute("value")
+    let userId = document.querySelector('#deleteModalIdField')["value"]
     fetch("/admin/api/users/", {
         method: "DELETE",
         headers: {
@@ -143,10 +141,12 @@ function createUserObject(form) {
     new FormData(form).forEach((value, key) => user[key] = value);
     user["roles"] = []
     form.querySelectorAll('select option').forEach((roleOption) => {
-        user["roles"].push({
-            "id": roleOption["value"],
-            "name": roleOption["innerText"]
-        })
+        if (roleOption["selected"]) {
+            user["roles"].push({
+                "id": roleOption["value"],
+                "name": roleOption["innerText"]
+            })
+        }
     })
     return user
 }
