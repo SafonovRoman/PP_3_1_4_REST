@@ -12,29 +12,29 @@ function drawUsersTable() {
 
 function updateUsersTable(users) {
     tableBody.innerHTML = ""
-    users.forEach((user) =>{
+    users.forEach((user) => {
         let newRow = document.createElement('tr')
         let idCell = document.createElement('td')
-        idCell.textContent=user.id
+        idCell.textContent = user.id
         newRow.appendChild(idCell)
 
         let usernameCell = document.createElement('td')
-        usernameCell.textContent=user.username
+        usernameCell.textContent = user.username
         usernameCell.id = "usernameCell_" + user.id
         newRow.appendChild(usernameCell)
 
         let firstNameCell = document.createElement('td')
-        firstNameCell.textContent=user.firstName
+        firstNameCell.textContent = user.firstName
         firstNameCell.id = "firstNameCell_" + user.id
         newRow.appendChild(firstNameCell)
 
         let lastNameCell = document.createElement('td')
-        lastNameCell.textContent=user.lastName
+        lastNameCell.textContent = user.lastName
         lastNameCell.id = "lastNameCell_" + user.id
         newRow.appendChild(lastNameCell)
 
         let emailCell = document.createElement('td')
-        emailCell.textContent=user.email
+        emailCell.textContent = user.email
         emailCell.id = "emailCell_" + user.id
         newRow.appendChild(emailCell)
 
@@ -62,7 +62,6 @@ function updateUsersTable(users) {
         deleteButtonLink.onclick = (event) => openDeleteModal(event)
         deleteButtonCell.appendChild(deleteButtonLink)
         newRow.appendChild(deleteButtonCell)
-
         tableBody.appendChild(newRow)
     })
 }
@@ -70,13 +69,17 @@ function updateUsersTable(users) {
 function openEditModal(event) {
     let userId = event.target.dataset.userid
     fetch("/admin/api/users/" + userId).then(response => response.json())
-        .then((data) => {updateModal(data, userEditForm)})
+        .then((data) => {
+            updateModal(data, userEditForm)
+        })
 }
 
 function openDeleteModal(event) {
     let userId = event.target.dataset.userid
     fetch("/admin/api/users/" + userId).then(response => response.json())
-        .then((data) => {console.log(data); updateModal(data, deleteModalForm)})
+        .then((data) => {
+            updateModal(data, deleteModalForm)
+        })
 }
 
 function updateModal(user, form) {
@@ -101,7 +104,8 @@ function sendUpdateRequest() {
             "Content-type": "application/json"
         },
         body: JSON.stringify(
-            {"user": user,
+            {
+                "user": user,
                 "password": document.querySelector("#editModalPasswordField")["value"]
             })
     })
