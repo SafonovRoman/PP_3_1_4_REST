@@ -1,5 +1,4 @@
 const tableBody = document.querySelector('#users-table-body')
-const editModalForm = document.querySelector('#userEditForm')
 const deleteModalForm = document.querySelector('#userDeleteForm')
 const newUserForm = document.querySelector("#newUserForm")
 const userEditForm = document.querySelector("#userEditForm")
@@ -71,7 +70,7 @@ function updateUsersTable(users) {
 function openEditModal(event) {
     let userId = event.target.dataset.userid
     fetch("/admin/api/users/" + userId).then(response => response.json())
-        .then((data) => {updateModal(data, editModalForm)})
+        .then((data) => {updateModal(data, userEditForm)})
 }
 
 function openDeleteModal(event) {
