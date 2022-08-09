@@ -87,12 +87,8 @@ function updateModal(user, form) {
         let inputField = form.querySelector(`input[name=\"${key}\"]`)
         if (inputField != null) inputField.value = user[key]
     }
-    let userSelectedRoles = []
-    for (let roleIndex in user.roles) {
-        userSelectedRoles.push(user.roles[roleIndex].id)
-    }
     form.querySelectorAll("option").forEach((optionNode) => {
-        if (userSelectedRoles.includes(Number(optionNode.getAttribute("value")))) {
+        if (user.roles.find(element => element.id === Number(optionNode["value"]))) {
             optionNode.setAttribute("selected", true)
         } else {
             optionNode.removeAttribute("selected")
